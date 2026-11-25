@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Косметичка</title>
+  <meta name="description" content="Учёт косметики и уходовых средств">
+  <meta name="theme-color" content="#fbeff2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1517" media="(prefers-color-scheme: dark)">
+
+  <!-- iOS: запуск как отдельное приложение с экрана «Домой» -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Косметичка">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1 id="title">Косметичка</h1>
+  </header>
+
+  <main id="main" class="main"></main>
+
+  <nav class="tabbar">
+    <button data-action="tab" data-value="home"><span class="ti">🧴</span><span>Косметичка</span></button>
+    <button data-action="tab" data-value="soon"><span class="ti">⏳</span><span>Сроки</span></button>
+    <button data-action="add" class="add" aria-label="Добавить"><span>+</span></button>
+    <button data-action="tab" data-value="wish"><span class="ti">🛍️</span><span>Хочу</span></button>
+    <button data-action="tab" data-value="settings"><span class="ti">⚙️</span><span>Ещё</span></button>
+  </nav>
+
+  <!-- Форма добавления / редактирования средства -->
+  <dialog id="sheet" class="sheet">
+    <form id="form" method="dialog" autocomplete="off">
+      <div class="sheet-head">
+        <button type="button" class="link" data-action="close">Отмена</button>
+        <strong id="sheet-title">Новое средство</strong>
+        <button type="submit" class="link bold">Готово</button>
+      </div>
+
+      <div class="sheet-body">
+        <label class="photo-pick">
+          <input type="file" name="photoFile" accept="image/*" hidden>
+          <div class="photo-preview" id="photo-preview"><span>📷<br>Фото</span></div>
+        </label>
+
+        <div class="group">
+          <input name="name" placeholder="Название *" required>
+          <input name="brand" placeholder="Бренд">
+        </div>
+
+        <div class="group">
+          <label class="row">Категория <select name="category" id="f-category"></select></label>
+          <label class="row">Статус <select name="status" id="f-status"></select></label>
+        </div>
+
+        <div class="group">
+          <label class="row">Открыла <input type="date" name="openedAt"></label>
+          <label class="row">Срок после вскрытия <select name="paoMonths" id="f-pao"></select></label>
+          <label class="row">Годен до <input type="date" name="expiresAt"></label>
+          <button type="button" class="row-btn" data-action="opened-today">Открыла сегодня</button>
+        </div>
+
+        <div class="group">
+          <label class="row">Цена, ₽ <input type="number" name="price" inputmode="decimal" min="0" step="any" placeholder="—"></label>
+          <div class="row">Оценка <span class="stars" id="f-stars"></span></div>
+        </div>
+
+        <div class="group">
+          <textarea name="notes" rows="3" placeholder="Заметки: как подошло, где купила, аналоги…"></textarea>
+        </div>
+
+        <button type="button" class="danger" id="delete-btn" data-action="delete">Удалить средство</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status"></div>
+</body>
+</html>

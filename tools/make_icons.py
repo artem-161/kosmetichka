@@ -8,10 +8,10 @@ import zlib
 
 OUT = os.path.join(os.path.dirname(__file__), '..', 'icons')
 
-TOP = (247, 196, 210)     # розовый сверху
-BOTTOM = (224, 96, 126)   # акцентный снизу
+TOP = (232, 150, 175)     # пудровая роза сверху
+BOTTOM = (133, 40, 75)    # глубокая роза снизу
 WHITE = (255, 255, 255)
-LID = (255, 236, 241)
+LID = (255, 226, 234)
 
 
 def rrect(x, y, x0, y0, x1, y1, r):
@@ -30,7 +30,7 @@ def color_at(x, y):
         # сердечко на баночке
         hx, hy = (x - 0.5) / 0.09, (0.585 - y) / 0.09
         if (hx * hx + hy * hy - 1) ** 3 - hx * hx * hy ** 3 <= 0:
-            return BOTTOM
+            return (196, 82, 118)
         return WHITE
     return bg
 

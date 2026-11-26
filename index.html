@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Косметичка</title>
   <meta name="description" content="Учёт косметики и уходовых средств">
-  <meta name="theme-color" content="#fbeff2" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#1c1517" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f8eef0" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1d1218" media="(prefers-color-scheme: dark)">
 
   <!-- iOS: запуск как отдельное приложение с экрана «Домой» -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Косметичка">
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="icons/icon-192.png">
@@ -21,66 +21,72 @@
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
-  <header class="topbar">
-    <h1 id="title">Косметичка</h1>
-  </header>
+  <!-- Мягкий живой фон, через который «просвечивает» стекло -->
+  <div class="backdrop" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+  </div>
 
-  <main id="main" class="main"></main>
+  <main id="main" class="view"></main>
 
-  <nav class="tabbar">
-    <button data-action="tab" data-value="home"><span class="ti">🧴</span><span>Косметичка</span></button>
-    <button data-action="tab" data-value="soon"><span class="ti">⏳</span><span>Сроки</span></button>
-    <button data-action="add" class="add" aria-label="Добавить"><span>+</span></button>
-    <button data-action="tab" data-value="wish"><span class="ti">🛍️</span><span>Хочу</span></button>
-    <button data-action="tab" data-value="settings"><span class="ti">⚙️</span><span>Ещё</span></button>
+  <!-- Нижнее меню в стиле Liquid Glass -->
+  <nav class="dock">
+    <div class="tabbar glass">
+      <span class="tab-lens" id="tab-lens" aria-hidden="true"></span>
+      <button class="tab" data-action="tab" data-value="home"><i data-icon="jar"></i><span>Косметичка</span></button>
+      <button class="tab" data-action="tab" data-value="soon"><i data-icon="hourglass"></i><span>Сроки</span></button>
+      <button class="tab" data-action="tab" data-value="wish"><i data-icon="heart"></i><span>Хочу</span></button>
+      <button class="tab" data-action="tab" data-value="settings"><i data-icon="more"></i><span>Ещё</span></button>
+    </div>
+    <button class="fab glass" data-action="add" aria-label="Добавить"><i data-icon="plus"></i></button>
   </nav>
 
-  <!-- Форма добавления / редактирования средства -->
+  <!-- Шторка: добавление / редактирование средства -->
   <dialog id="sheet" class="sheet">
-    <form id="form" method="dialog" autocomplete="off">
-      <div class="sheet-head">
-        <button type="button" class="link" data-action="close">Отмена</button>
-        <strong id="sheet-title">Новое средство</strong>
-        <button type="submit" class="link bold">Готово</button>
-      </div>
+    <form id="form" autocomplete="off">
+      <div class="sheet-grab"><span></span></div>
+      <header class="sheet-head">
+        <h2 id="sheet-title">Новое средство</h2>
+        <button type="button" class="glass-btn" data-action="close" aria-label="Закрыть"><i data-icon="close"></i></button>
+      </header>
 
       <div class="sheet-body">
-        <label class="photo-pick">
+        <label class="photo-pick" id="photo-pick">
           <input type="file" name="photoFile" accept="image/*" hidden>
-          <div class="photo-preview" id="photo-preview"><span>📷<br>Фото</span></div>
+          <span class="photo-hint"><i data-icon="camera"></i><span>Добавить фото</span></span>
         </label>
 
-        <div class="group">
-          <input name="name" placeholder="Название *" required>
-          <input name="brand" placeholder="Бренд">
+        <div class="field-group">
+          <label class="field"><span>Название</span><input name="name" placeholder="Обязательно" required></label>
+          <label class="field"><span>Бренд</span><input name="brand" placeholder="Например, CeraVe"></label>
         </div>
 
-        <div class="group">
-          <label class="row">Категория <select name="category" id="f-category"></select></label>
-          <label class="row">Статус <select name="status" id="f-status"></select></label>
+        <div class="form-title">Где хранится</div>
+        <div class="field-group">
+          <label class="field"><span>Категория</span><select name="category" id="f-category"></select></label>
+          <label class="field"><span>Статус</span><select name="status" id="f-status"></select></label>
         </div>
 
-        <div class="group">
-          <label class="row">Открыла <input type="date" name="openedAt"></label>
-          <label class="row">Срок после вскрытия <select name="paoMonths" id="f-pao"></select></label>
-          <label class="row">Годен до <input type="date" name="expiresAt"></label>
-          <button type="button" class="row-btn" data-action="opened-today">Открыла сегодня</button>
+        <div class="form-title"><i data-icon="hourglass"></i>Срок годности</div>
+        <div class="field-group">
+          <label class="field"><span>Открыла</span><input type="date" name="openedAt"></label>
+          <label class="field"><span>После вскрытия</span><select name="paoMonths" id="f-pao"></select></label>
+          <label class="field"><span>Годен до</span><input type="date" name="expiresAt"></label>
+        </div>
+        <button type="button" class="link-btn" data-action="opened-today"><i data-icon="calendar"></i>Открыла сегодня</button>
+
+        <div class="form-title">Впечатления</div>
+        <div class="field-group">
+          <label class="field"><span>Цена, ₽</span><input type="number" name="price" inputmode="decimal" min="0" step="any" placeholder="—"></label>
+          <div class="field"><span>Оценка</span><span class="stars" id="f-stars"></span></div>
+          <label class="field"><textarea name="notes" rows="3" placeholder="Заметки: как подошло, где купила, аналоги…"></textarea></label>
         </div>
 
-        <div class="group">
-          <label class="row">Цена, ₽ <input type="number" name="price" inputmode="decimal" min="0" step="any" placeholder="—"></label>
-          <div class="row">Оценка <span class="stars" id="f-stars"></span></div>
-        </div>
-
-        <div class="group">
-          <textarea name="notes" rows="3" placeholder="Заметки: как подошло, где купила, аналоги…"></textarea>
-        </div>
-
-        <button type="button" class="danger" id="delete-btn" data-action="delete">Удалить средство</button>
+        <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+        <button type="button" class="btn btn-ghost-danger btn-block" id="delete-btn" data-action="delete"><i data-icon="trash"></i>Удалить средство</button>
       </div>
     </form>
   </dialog>
 
-  <div id="toast" class="toast" role="status"></div>
+  <div id="toast" class="toast glass" role="status"></div>
 </body>
 </html>

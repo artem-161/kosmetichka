@@ -1,19 +1,20 @@
 // Настройки приложения. Чтобы добавить категорию или статус — правь здесь,
 // остальной код подхватит изменения сам.
 
-export const APP_VERSION = '0.1.1';
+export const APP_VERSION = '0.2.0';
 
 // За сколько дней до окончания срока подсвечивать средство как «скоро истекает»
 export const SOON_DAYS = 30;
 
 export const CATEGORIES = [
-  { id: 'face',    name: 'Уход за лицом', emoji: '🧴' },
-  { id: 'makeup',  name: 'Макияж',        emoji: '💄' },
-  { id: 'hair',    name: 'Волосы',        emoji: '💇‍♀️' },
-  { id: 'body',    name: 'Тело',          emoji: '🛁' },
-  { id: 'nails',   name: 'Ногти',         emoji: '💅' },
-  { id: 'perfume', name: 'Парфюм',        emoji: '🌸' },
-  { id: 'other',   name: 'Другое',        emoji: '✨' },
+  // icon — имя иконки из js/icons.js, tint — градиент заглушки без фото
+  { id: 'face',    name: 'Уход за лицом', icon: 'jar',      tint: ['#f6d6dc', '#d98a9c'] },
+  { id: 'makeup',  name: 'Макияж',        icon: 'lipstick', tint: ['#f3cfd6', '#c25d78'] },
+  { id: 'hair',    name: 'Волосы',        icon: 'hair',     tint: ['#f2dccb', '#c99272'] },
+  { id: 'body',    name: 'Тело',          icon: 'pump',     tint: ['#e6dcef', '#a48bc2'] },
+  { id: 'nails',   name: 'Ногти',         icon: 'polish',   tint: ['#f6d2cf', '#d9786e'] },
+  { id: 'perfume', name: 'Парфюм',        icon: 'perfume',  tint: ['#efd9e8', '#b8739e'] },
+  { id: 'other',   name: 'Другое',        icon: 'sparkle',  tint: ['#f1e2d6', '#c9a27f'] },
 ];
 
 export const STATUSES = {

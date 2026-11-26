@@ -1,7 +1,7 @@
 // Service worker: кэширует файлы приложения, чтобы оно открывалось без интернета.
 // ВАЖНО: после любых изменений в файлах подними номер CACHE,
 // иначе на телефоне останется старая версия.
-const CACHE = 'kosmetichka-v2';
+const CACHE = 'kosmetichka-v3';
 
 const ASSETS = [
   './',
@@ -10,6 +10,7 @@ const ASSETS = [
   './js/app.js',
   './js/db.js',
   './js/config.js',
+  './js/icons.js',
   './manifest.webmanifest',
   './icons/apple-touch-icon.png',
   './icons/icon-192.png',
